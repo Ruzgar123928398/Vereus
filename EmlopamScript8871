@@ -1,0 +1,569 @@
+-----------//VEREUS\\-----------
+--[[Movelist
+Q = The reverse penance stare,
+E = Doom Pillars
+T = Unleashed evil ball
+Y = The hunt is on
+Z = CRAZY XESTER SWITCH!!!
+X = Re_*101011Dact/^ed.exe
+---------]]
+
+--To get this shit out of the way, this is NOT a edit of void boss, it was a little project of mine to see how easy it was to animate 2 hands and a head.--
+--Also stop calling this void boss v2, void boss switcher or any other name you come up with.--
+--I'm not proud of this project however, having a script this powerful is uncreative and boring + that's what skids care about anyway.--
+--Alright enjoy it guys please do not abuse the shit out of this.--
+
+Player=game:GetService("Players").LocalPlayer
+Character=Player.Character
+Character.Humanoid.Name = "vereus"
+hum = Character.vereus
+LeftArm=Character["Left Arm"]
+LeftLeg=Character["Left Leg"]
+RightArm=Character["Right Arm"]
+RightLeg=Character["Right Leg"]
+Root=Character["HumanoidRootPart"]
+Head=Character["Head"]
+Torso=Character["Torso"]
+Neck=Torso["Neck"]
+attacking = false
+snoring = false
+laughing = false
+taim = nil
+secondform = false
+change = 0
+xester = false
+rachjumper = false
+ws = 92
+hpheight = 5
+huntdown = false
+visualizer = false
+jumpscared = false
+appi = false
+stoplev = false
+tauntdebounce = false
+allowlev = true
+MseGuide = true
+position = nil
+levitate = false
+mouse = Player:GetMouse()
+settime = 0
+sine = 0
+t = 0
+dgs = 75
+RunSrv = game:GetService("RunService")
+RenderStepped = game:GetService("RunService").RenderStepped
+removeuseless = game:GetService("Debris")
+smoothen = game:GetService("TweenService")
+randomcolortable={"Cyan","Really red","Cyan","Royal purple","Lime green","Crimson","Daisy yellow","Eggplant"}
+random = #randomcolortable
+smoothen = game:GetService("TweenService")
+local dmt2 = {143536946,2858940717}
+local laughs = {2011349649,2011349983,2011351501,2011352223,2011355991,2011356475}
+local soundtable2 = {2616767970,2614901458,2616891279,2614896603,2616768521,2616848595,2614905967,2614918002,2563244734,2563244134,2563244444,2563244999,2563245407,2563654940,2563656758,2563658474,2563659001}
+laugh = #laughs
+
+local HEADLERP = Instance.new("ManualWeld")
+HEADLERP.Parent = Head
+HEADLERP.Part0 = Head
+HEADLERP.Part1 = Head
+HEADLERP.C0 = CFrame.new(0, -1.5, -.5) * CFrame.Angles(math.rad(30), math.rad(0), math.rad(0))
+
+local TORSOLERP = Instance.new("ManualWeld")
+TORSOLERP.Parent = Root
+TORSOLERP.Part0 = Torso
+TORSOLERP.C0 = CFrame.new(0, 0, 0) * CFrame.Angles(math.rad(0), math.rad(0), math.rad(0))
+
+local ROOTLERP = Instance.new("ManualWeld")
+ROOTLERP.Parent = Root
+ROOTLERP.Part0 = Root
+ROOTLERP.Part1 = Torso
+ROOTLERP.C0 = CFrame.new(0, 0, 0) * CFrame.Angles(math.rad(0), math.rad(0), math.rad(0))
+
+local RIGHTARMLERP = Instance.new("ManualWeld")
+RIGHTARMLERP.Parent = RightArm
+RIGHTARMLERP.Part0 = RightArm
+RIGHTARMLERP.Part1 = Torso
+RIGHTARMLERP.C0 = CFrame.new(-1.5, 0, -0) * CFrame.Angles(math.rad(0), math.rad(0), math.rad(0))
+
+local LEFTARMLERP = Instance.new("ManualWeld")
+LEFTARMLERP.Parent = LeftArm
+LEFTARMLERP.Part0 = LeftArm
+LEFTARMLERP.Part1 = Torso
+LEFTARMLERP.C0 = CFrame.new(1.5, 0, -0) * CFrame.Angles(math.rad(0), math.rad(0), math.rad(0))
+
+local RIGHTLEGLERP = Instance.new("ManualWeld")
+RIGHTLEGLERP.Parent = RightLeg
+RIGHTLEGLERP.Part0 = RightLeg
+RIGHTLEGLERP.Part1 = Torso
+RIGHTLEGLERP.C0 = CFrame.new(-0.5, 2, 0) * CFrame.Angles(math.rad(0), math.rad(0), math.rad(0))
+
+local LEFTLEGLERP = Instance.new("ManualWeld")
+LEFTLEGLERP.Parent = LeftLeg
+LEFTLEGLERP.Part0 = LeftLeg
+LEFTLEGLERP.Part1 = Torso
+LEFTLEGLERP.C0 = CFrame.new(0.5, 2, 0) * CFrame.Angles(math.rad(0), math.rad(0), math.rad(0))
+
+local function weldBetween(a, b)
+    local weld = Instance.new("ManualWeld", a)
+    weld.Part0 = a
+    weld.Part1 = b
+    weld.C0 = a.CFrame:inverse() * b.CFrame
+    return weld
+end
+
+function MAKETRAIL(PARENT,POSITION1,POSITION2,LIFETIME,COLOR)
+A = Instance.new("Attachment", PARENT)
+A.Position = POSITION1
+A.Name = "A"
+B = Instance.new("Attachment", PARENT)
+B.Position = POSITION2
+B.Name = "B"
+tr1 = Instance.new("Trail", PARENT)
+tr1.Attachment0 = A
+tr1.Attachment1 = B
+tr1.Enabled = true
+tr1.Lifetime = LIFETIME
+tr1.TextureMode = "Static"
+tr1.LightInfluence = 0
+tr1.Color = COLOR
+tr1.Transparency = NumberSequence.new(0, 1)
+end
+
+coroutine.wrap(function()
+while wait() do
+hum.WalkSpeed = ws
+end
+end)()
+godmode = coroutine.wrap(function()
+for i,v in pairs(Character:GetChildren()) do
+if v:IsA("BasePart") and v ~= Root then
+v.Anchored = false
+end
+end
+while true do
+hum.MaxHealth = math.huge
+wait(0.0000001)
+hum.Health = math.huge
+wait()
+end
+end)
+godmode()
+ff = Instance.new("ForceField", Character)
+ff.Visible = false
+
+coroutine.wrap(function()
+for i,v in pairs(Character:GetChildren()) do
+if v.Name == "Animate" then v:Remove()
+end
+end
+end)()
+
+for _,x in pairs(Character:GetChildren()) do
+if x:IsA("Decal") then x:Remove() end
+end
+
+function damagealll(Radius,Position)		
+	local Returning = {}		
+	for _,v in pairs(workspace:GetChildren()) do		
+		if v~=Character and v:FindFirstChildOfClass('Humanoid') and v:FindFirstChild('Torso') or v:FindFirstChild('UpperTorso') then
+if v:FindFirstChild("Torso") then		
+			local Mag = (v.Torso.Position - Position).magnitude		
+			if Mag < Radius then		
+				table.insert(Returning,v)		
+			end
+elseif v:FindFirstChild("UpperTorso") then	
+			local Mag = (v.UpperTorso.Position - Position).magnitude		
+			if Mag < Radius then		
+				table.insert(Returning,v)		
+			end
+end	
+		end		
+	end		
+	return Returning		
+end
+
+ArtificialHB = Instance.new("BindableEvent", script)
+ArtificialHB.Name = "Heartbeat"
+script:WaitForChild("Heartbeat")
+
+frame = 1 / 60
+tf = 0
+allowframeloss = false
+tossremainder = false
+
+
+lastframe = tick()
+script.Heartbeat:Fire()
+
+
+game:GetService("RunService").Heartbeat:connect(function(s, p)
+	tf = tf + s
+	if tf >= frame then
+		if allowframeloss then
+			script.Heartbeat:Fire()
+			lastframe = tick()
+		else
+			for i = 1, math.floor(tf / frame) do
+				script.Heartbeat:Fire()
+			end
+			lastframe = tick()
+		end
+		if tossremainder then
+			tf = 0
+		else
+			tf = tf - frame * math.floor(tf / frame)
+		end
+	end
+end)
+
+function swait(num)
+	if num == 0 or num == nil then
+		game:service("RunService").Stepped:wait(0)
+	else
+		for i = 0, num do
+			game:service("RunService").Stepped:wait(0)
+		end
+	end
+end
+
+for i,v in pairs(Root.Parent:GetDescendants()) do if v:IsA("Part") then v.Transparency = 1 end end
+
+id = "rbxassetid://2858940717"
+
+
+dmt2random = dmt2[math.random(1,#dmt2)]
+doomtheme = Instance.new("Sound", Torso)
+doomtheme.Volume = 4
+doomtheme.Name = "doomtheme"
+doomtheme.Looped = true
+doomtheme.SoundId = "rbxassetid://"..dmt2random
+if doomtheme.SoundId == "rbxassetid://2858940717" then
+doomtheme.Pitch = .49
+else
+doomtheme.Pitch = 1
+end
+doomtheme:Play()
+
+
+Torso.ChildRemoved:connect(function(removed)
+if removed.Name == "doomtheme" then
+if xester then
+doomtheme = Instance.new("Sound",Torso)
+doomtheme.Volume = 4
+doomtheme.Name = "doomtheme"
+doomtheme.Looped = true
+doomtheme.SoundId = "rbxassetid://1382488262"
+doomtheme.TimePosition = 20.72
+doomtheme:Play()
+else
+dmt2random = dmt2[math.random(1,#dmt2)]
+doomtheme = Instance.new("Sound",Torso)
+doomtheme.Volume = 4
+doomtheme.Name = "doomtheme"
+doomtheme.Looped = true
+doomtheme.SoundId = "rbxassetid://"..dmt2random
+if doomtheme.SoundId == "rbxassetid://2858940717" then
+doomtheme.Pitch = .49
+else
+doomtheme.Pitch = 1
+end
+doomtheme:Play()
+end
+end
+end)
+
+function SOUND(PARENT,ID,VOL,LOOP,REMOVE)
+local so = Instance.new("Sound")
+so.Parent = PARENT
+so.SoundId = "rbxassetid://"..ID
+so.Volume = VOL
+so.Looped = LOOP
+so:Play()
+removeuseless:AddItem(so,REMOVE)
+end
+
+bighead = Instance.new("Part",Torso)
+bighead.Size = Vector3.new(1,1,1)
+bighead.Anchored = false
+bighead.CanCollide = false
+bighead.Locked = true
+bighead.Size = Vector3.new(4.75, 4.89, 4.77)
+bighead.BrickColor = BrickColor.new("Really black")
+bighead.CFrame = Head.CFrame
+bigheadweld = weldBetween(bighead,Head)
+headmesh = Instance.new("SpecialMesh",bighead)
+headmesh.MeshType = "Head"
+headmesh.Scale = Vector3.new(1.25,1.25,1.25)
+
+mask = Instance.new("Part",Torso)
+mask.Size = Vector3.new(.1, 0.39, .1)
+mask.Anchored = false
+mask.Locked = true
+mask.CanCollide = false
+mask.BrickColor = BrickColor.new("White")
+mask.Material = "Corroded Metal"
+maskweld = weldBetween(mask,bighead)
+maskweld.C0 = CFrame.new(0,-2.4,0) * CFrame.Angles(math.rad(90),0,0)
+maskmesh = Instance.new("SpecialMesh",mask)
+maskmesh.MeshId = "rbxassetid://5158270"
+maskmesh.TextureId = "rbxassetid://128212042"
+maskmesh.Scale = Vector3.new(0.7, 0.5, 0.5)
+
+lightpart1 = Instance.new("Part",Head)
+lightpart1.Size = Vector3.new(2.42,2,.516)
+lightpart1.Anchored = false
+lightpart1.Transparency = 1
+lightpart1.BrickColor = BrickColor.new("White")
+lightpart1.Material = "Neon"
+lightpart1weld = weldBetween(lightpart1,Head)
+lightpart1weld.C0 = CFrame.new(0,.9,2.595)
+
+horns = Instance.new("Part",Torso)
+horns.Size = Vector3.new(.1,.1,.1)
+horns.Material = "Slate"
+horns.Locked = true
+horns.BrickColor = BrickColor.new("Really black")
+horns.CFrame = Head.CFrame * CFrame.new(0,3,0)
+hornsmesh = Instance.new("SpecialMesh",horns)
+hornsmesh.MeshId = "rbxassetid://434078905"
+hornsmesh.Scale = Vector3.new(13,12,12)
+hornsweld = weldBetween(horns,bighead)
+hornsweld.C0 = CFrame.new(0,-3.3,.82) * CFrame.Angles(math.rad(0),math.rad(180),0)
+
+hand1 = Instance.new("Part",Torso)
+hand1.Size = Vector3.new(.1,.1,.1)
+hand1.Anchored = false
+hand1.Locked = true
+hand1.CanCollide = false
+hand1.BrickColor = BrickColor.new("White")
+hand1.Material = "Slate"
+hand1mesh = Instance.new("SpecialMesh",hand1)
+hand1mesh.MeshId = "rbxassetid://37241605"
+hand1mesh.Scale = Vector3.new(8, 8, 8)
+HAND1LERP = weldBetween(hand1,Torso)
+HAND1LERP.C0 = CFrame.new(4.5,-5,6) * CFrame.Angles(math.rad(10),math.rad(-5),math.rad(-36))
+
+hand2 = Instance.new("Part",Torso)
+hand2.Size = Vector3.new(.1,.1,.1)
+hand2.Anchored = false
+hand2.CanCollide = false
+hand2.Locked = true
+hand2.BrickColor = BrickColor.new("White")
+hand2.Material = "Slate"
+hand2mesh = Instance.new("SpecialMesh",hand2)
+hand2mesh.MeshId = "rbxassetid://2899129749"
+hand2mesh.Scale = Vector3.new(.8, .8, .8)
+HAND2LERP = weldBetween(hand2,Torso)
+HAND2LERP.C0 = HAND2LERP.C0:Inverse() * CFrame.new(-5,-5,6) * CFrame.Angles(math.rad(90),math.rad(90),math.rad(95))
+
+mg1 = Instance.new("Part",Torso)
+mg1.Anchored = false
+mg1.CanCollide = false
+mg1.Locked = true
+mg1.Size = Vector3.new(4,4,4)
+mg1.Shape = "Ball"
+mg1.BrickColor = BrickColor.new("Really black")
+mg1.Material = "Neon"
+mg1.CFrame = hand1.CFrame
+mg1weld = weldBetween(mg1,hand1)
+mg1weld.C0 = CFrame.new(0,2.7,-4)
+blackhole = Instance.new("ParticleEmitter",mg1)
+blackhole.Texture = "rbxassetid://258128463"
+blackhole.Size = NumberSequence.new(2,2)
+blackhole.Rate = 50
+blackhole.LockedToPart = true
+blackhole.Color = ColorSequence.new(BrickColor.new("Really black").Color,BrickColor.new("Really black").Color)
+blackhole.RotSpeed = NumberRange.new(50)
+blackhole.Lifetime = NumberRange.new(1)
+blackhole.Speed = NumberRange.new(0)
+
+mg2 = Instance.new("Part",Torso)
+mg2.Anchored = false
+mg2.CanCollide = false
+mg2.Shape = "Ball"
+mg2.Locked = true
+mg2.Size = Vector3.new(4,4,4)
+mg2.BrickColor = BrickColor.new("Really black")
+mg2.Material = "Neon"
+mg2.CFrame = hand2.CFrame
+mg2weld = weldBetween(mg2,hand2)
+mg2weld.C0 = CFrame.new(0,2.7,-4)
+blackhole2 = Instance.new("ParticleEmitter",mg2)
+blackhole2.Texture = "rbxassetid://258128463"
+blackhole2.Size = NumberSequence.new(2,2)
+blackhole2.Rate = 50
+blackhole2.Color = ColorSequence.new(BrickColor.new("Really black").Color,BrickColor.new("Really black").Color)
+blackhole2.RotSpeed = NumberRange.new(50)
+blackhole2.Lifetime = NumberRange.new(1)
+blackhole2.LockedToPart = true
+blackhole2.Speed = NumberRange.new(0)
+
+slaten = Instance.new("Decal",hand2)
+slaten.Texture = "rbxassetid://647441616"
+slaten.Color3 = Color3.new(0, 0, 0)
+slaten.Face = "Top"
+
+slaten2 = Instance.new("Decal",hand2)
+slaten2.Texture = "rbxassetid://647417318"
+slaten2.Color3 = Color3.new(0,0,0)
+slaten2.Face = "Top"
+
+slatez = Instance.new("Decal",hand1)
+slatez.Texture = "rbxassetid://647441616"
+slatez.Color3 = Color3.new(0, 0, 0)
+slatez.Face = "Top"
+
+slatez2 = Instance.new("Decal",hand1)
+slatez2.Texture = "rbxassetid://647417318"
+slatez2.Color3 = Color3.new(0,0,0)
+slatez2.Face = "Top"
+
+slatez3 = Instance.new("Decal",hand1)
+slatez3.Texture = "rbxassetid://647410994"
+slatez3.Color3 = Color3.new(1,1,1)
+slatez3.Face = "Top"
+
+slatez4 = Instance.new("Decal",hand1)
+slatez4.Texture = "rbxassetid://647413967"
+slatez4.Color3 = Color3.new(1,1,1)
+slatez4.Face = "Top"
+
+slatex = Instance.new("Decal",horns)
+slatex.Texture = "rbxassetid://647441616"
+slatex.Color3 = Color3.new(0, 0, 0)
+slatex.Face = "Top"
+
+slatex2 = Instance.new("Decal",horns)
+slatex2.Texture = "rbxassetid://647417318"
+slatex2.Color3 = Color3.new(0,0,0)
+slatex2.Face = "Top"
+
+slatex3 = Instance.new("Decal",horns)
+slatex3.Texture = "rbxassetid://647410994"
+slatex3.Color3 = Color3.new(1,1,1)
+slatex3.Face = "Top"
+
+slatex4 = Instance.new("Decal",horns)
+slatex4.Texture = "rbxassetid://647413967"
+slatex4.Color3 = Color3.new(1,1,1)
+slatex4.Face = "Top"
+
+slatex5 = Instance.new("Decal",horns)
+slatex5.Texture = "rbxassetid://64739326f6"
+slatex5.Color3 = Color3.new(1, 1, 1)
+slatex5.Face = "Top"
+
+eyeball1 = Instance.new("Part",Torso)
+eyeball1.Anchored = false
+eyeball1.CanCollide = false
+eyeball1.Locked = true
+eyeball1.Shape = "Ball"
+eyeball1.Material = "Glass"
+eyeball1.Size = Vector3.new(3.25, 3.25, 3.25)
+eyeball1.BrickColor = BrickColor.new("Really black")
+eyeball1weld = weldBetween(eyeball1,Head)
+eyeball1weld.C0 = CFrame.new(.6,-.2,1.25)
+
+eyeball2 = Instance.new("Part",Torso)
+eyeball2.Anchored = false
+eyeball2.CanCollide = false
+eyeball2.Shape = "Ball"
+eyeball2.Locked = true
+eyeball2.Material = "Glass"
+eyeball2.Size = Vector3.new(3.25, 3.25, 3.25)
+eyeball2.BrickColor = BrickColor.new("Really black")
+eyeball2weld = weldBetween(eyeball2,Head)
+eyeball2weld.C0 = CFrame.new(-.6,-.2,1.25)
+
+eyeball3 = Instance.new("Part",Torso)
+eyeball3.Anchored = false
+eyeball3.CanCollide = false
+eyeball3.Locked = true
+eyeball3.Material = "Neon"
+eyeball3.Size = Vector3.new(0.4, 0.4, 0.4)
+eyeball3.BrickColor = BrickColor.new("Crimson")
+eyeball3mesh = Instance.new("SpecialMesh",eyeball3)
+eyeball3mesh.MeshType = "Sphere"
+eyeball3weld = weldBetween(eyeball3,Head)
+eyeball3weld.C0 = CFrame.new(-1.2,-.3,2.65)
+
+eyeball4 = Instance.new("Part",Torso)
+eyeball4.Anchored = false
+eyeball4.CanCollide = false
+eyeball4.Material = "Neon"
+eyeball4.Locked = true
+eyeball4.Size = Vector3.new(0.4, 0.4, 0.4)
+eyeball4.BrickColor = BrickColor.new("Crimson")
+eyeball4mesh = Instance.new("SpecialMesh",eyeball4)
+eyeball4mesh.MeshType = "Sphere"
+eyeball4weld = weldBetween(eyeball4,Head)
+eyeball4weld.C0 = CFrame.new(1.2,-.3,2.65)
+
+coroutine.wrap(function()
+while true do
+wait(5)
+for i = 1, 10 do
+eyeball3.Size = eyeball3.Size - Vector3.new(0,.04,0)
+eyeball4.Size = eyeball4.Size - Vector3.new(0,.04,0)
+swait()
+end
+for i = 1, 10 do
+eyeball3.Size = eyeball3.Size + Vector3.new(0,.04,0)
+eyeball4.Size = eyeball4.Size + Vector3.new(0,.04,0)
+swait()
+end
+swait()
+end
+end)()
+
+slateh = Instance.new("Decal",mask)
+slateh.Texture = "rbxassetid://647441616"
+slateh.Color3 = Color3.new(0, 0, 0)
+slateh.Face = "Top"
+
+slateh2 = Instance.new("Decal",mask)
+slateh2.Texture = "rbxassetid://647417318"
+slateh2.Color3 = Color3.new(0,0,0)
+slateh2.Face = "Top"
+
+slateh3 = Instance.new("Decal",mask)
+slateh3.Texture = "rbxassetid://647410994"
+slateh3.Color3 = Color3.new(1,1,1)
+slateh3.Face = "Top"
+
+slateh4 = Instance.new("Decal",mask)
+slateh4.Texture = "rbxassetid://647413967"
+slateh4.Color3 = Color3.new(1,1,1)
+slateh4.Face = "Top"
+
+slateh5 = Instance.new("Decal",mask)
+slateh5.Texture = "rbxassetid://64739326f6"
+slateh5.Color3 = Color3.new(1, 1, 1)
+slateh5.Face = "Top"
+
+mouse.KeyDown:connect(function(Press)
+Press=Press:lower()
+if Press=='m' then
+immortality()
+elseif Press=='t' then
+if xester then
+if tauntdebounce then return end
+tauntdebounce = true
+laughing = true
+laugh = laughs[math.random(1,#laughs)]
+laughy = Instance.new("Sound",Head)
+laughy.SoundId = "rbxassetid://"..laugh
+laughy.Volume = 10
+laughy:Play()
+wait(1)
+wait(laughy.TimeLength)
+laughing = false
+laughy:Remove()
+tauntdebounce = false
+elseif rachjumper then
+if tauntdebounce == true then return end
+tauntdebounce = true
+rdnm2 = soundtable2[math.random(1,#soundtable2)]
+tauntsound = Instance.new("Sound", Head)
+tauntsound.Volume = 8
+tauntsound.SoundI
